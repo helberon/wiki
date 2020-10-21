@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+
 public class DriverManager {
     private static WebDriver driver;
     private static String driverName = System.getProperty("driver") == null ? "chrome" : System.getProperty("driver");
@@ -34,6 +35,7 @@ public class DriverManager {
 
     public static void closeDriver() {
         driver.close();
+        driver.quit();
         if (driver != null) {
             driver = null;
         }
