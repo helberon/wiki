@@ -1,6 +1,5 @@
 package StepsDef;
 
-import Steps.DefaultStepsData;
 import driverFactory.DriverManager;
 import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
@@ -8,28 +7,29 @@ import io.cucumber.java.en.Then;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import pages.BasePage;
+import pages.PageFactory;
 
 @Slf4j
-public class CommonStepDef extends DefaultStepsData {
-    private WebDriver driver;
+public class CommonStepDef {
 
-    @Given("I am on the main page")
-    public void goToMainPage() {
+    @Given("^I open '(.*)'$")
+    public void goToMainPage(String pageIdentifier) {
         log.info("Opening main page");
-        driver = DriverManager.getDriver();
-        driver.get("https://www.wikipedia.org/");
+        BasePage page = PageFactory.getPageByIdentifier(pageIdentifier);
+        page.openPage();
     }
 
-    @Then("I want to know that I am on right page")
-    public void simpleTest() {
+    @Then("^I check page '(.*)' opened$")
+    public void simpleTest(String pageIdentifier) {
         log.info("Getting current URL");
-        Assert.assertEquals(driver.getCurrentUrl(),"https://www.wikipedia.org/");
+        BasePage page = PageFactory.getPageByIdentifier(pageIdentifier);
+        Assert.assertTrue(page.isOpened());
     }
 
     @After
     public void closeBrowser() {
         log.info("Closing driver");
         DriverManager.closeDriver();
-        Assert.assertTrue(driver.toString().contains("null"));
     }
 }

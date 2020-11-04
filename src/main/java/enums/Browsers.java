@@ -8,7 +8,7 @@ public enum Browsers {
     FIREFOX("firefox"),
     EDGE("edge");
 
-    public String var;
+    public String var;//final
 
     Browsers(String var){
         this.var=var;
