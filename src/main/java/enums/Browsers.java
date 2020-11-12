@@ -8,7 +8,12 @@ public enum Browsers {
     FIREFOX("firefox"),
     EDGE("edge");
 
-    public String var;//final
+    public String var;
+
+    @Override
+    public String toString() {
+        return var;
+    }
 
     Browsers(String var){
         this.var=var;

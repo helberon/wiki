@@ -1,13 +1,14 @@
 package StepsDef;
 
 import driverFactory.DriverManager;
-import io.cucumber.java.After;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import pages.BasePage;
+import pages.MainPage;
 import pages.PageFactory;
 
 @Slf4j
@@ -20,6 +21,12 @@ public class CommonStepDef {
         page.openPage();
     }
 
+    @And("Click on current day in 'On this day' section")
+    public void currentDayClick(){
+        MainPage page = new MainPage();
+        page.clickOnThisDay();
+    }
+
     @Then("^I check page '(.*)' opened$")
     public void simpleTest(String pageIdentifier) {
         log.info("Getting current URL");
@@ -27,9 +34,5 @@ public class CommonStepDef {
         Assert.assertTrue(page.isOpened());
     }
 
-    @After
-    public void closeBrowser() {
-        log.info("Closing driver");
-        DriverManager.closeDriver();
-    }
+
 }

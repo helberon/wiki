@@ -8,22 +8,16 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import java.io.InputStream;
-import java.util.Properties;
+import static driverFactory.DriverProperties.getPropertiesFile;
+import static driverFactory.DriverProperties.propFileName;
 
 
 public class DriverManager {
     private static WebDriver driver;
-//    Properties properties = new Properties();
-//    String propFileName = "config.properties";
-//    InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-//    properties.load(inputStream);
-
-//    private static String driverName = System.getProperty("driverName");
-    private static String driverName = System.getProperty("driver") == null ? "chrome" : System.getProperty("driver");
 
     public static WebDriver getDriver() {
         if (driver == null) {
+            String driverName = getPropertiesFile(propFileName).getProperty("driverName");
             Browsers browser = EnumHelper.valueOf(Browsers.class, driverName);
             switch (browser) {
                 case CHROME:
